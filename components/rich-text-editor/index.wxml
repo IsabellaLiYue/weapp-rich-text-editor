@@ -1,0 +1,134 @@
+<view>
+  <scroll-view class="scroll-view" scroll-x="true" bindscroll="scroll">
+    <view class="scroll-items">
+      <view class="scroll-view-item" bindtap="undo">
+        <image src="{{'/images/undo.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item" bindtap="redo">
+        <image src="{{'/images/redo.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item">
+        <picker bindchange="fontSizeChange" value="{{index}}" range="{{fontSizeArray}}" class="scroll-picker">
+          <view class="scroll-content">
+            {{fontSizeIndex == 0 ? '字号' : fontSizeArray[fontSizeIndex]}}
+          </view>
+        </picker>
+      </view>
+      <view class="scroll-view-item">
+        <picker bindchange="paragraphChange" value="{{index}}" range="{{paragraphArray}}" >
+          <view class="scroll-content">
+            {{(formats.header === undefined) ? '段落' : 'H' + formats.header}}
+          </view>
+        </picker>
+      </view>
+      <view class="scroll-view-item" bindtap="format" data-name="color">
+        <view class="scroll-content">
+          <span class="iconfont icon-zimua over-flow" style="color: {{formats.color}}"></span>
+        </view>
+      </view>
+      <view class="scroll-view-item" bindtap="format" data-name="backgroundColor">
+        <view class="scroll-content">
+          <span class="iconfont icon-beijingse over-flow" style="color: {{formats.backgroundColor}}"></span>
+        </view>
+      </view>
+      <view class="scroll-view-item {{formats.bold ? 'image-active' : ''}}"
+        bindtap="format" data-name="bold">
+          <image src="{{'/images/bold.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item {{formats.italic ? 'image-active' : ''}}"
+        bindtap="format" data-name="italic">
+        <image src="{{'/images/italic.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item {{formats.underline ? 'image-active' : ''}}"
+        bindtap="format" data-name="underline">
+        <image src="{{'/images/underline.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item {{formats.strike ? 'image-active' : ''}}"
+        bindtap="format" data-name="strike">
+        <image src="{{'/images/strikethough.svg'}}" class="image" />
+      </view>
+      <view wx-if="{{isInsertImage}}" class="scroll-view-item " bindtap="onInsertImage">
+        <image src="{{'/images/insert-image.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item {{formats.align === 'left' ? 'image-active' : ''}}"
+        bindtap="format" data-name="align" data-value="left">
+        <image src="{{'/images/align-left.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item {{formats.align === 'center' ? 'image-active' : ''}}"
+        bindtap="format" data-name="align" data-value="center">
+        <image src="{{'/images/align-center.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item {{formats.align === 'right' ? 'image-active' : ''}}"
+        bindtap="format" data-name="align" data-value="right">
+        <image src="{{'/images/align-right.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item {{formats.align === 'justify' ? 'image-active' : ''}}"
+        bindtap="format" data-name="align" data-value="justify">
+        <image src="{{'/images/align-justify.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item {{formats.list === 'ordered' ? 'image-active' : ''}}"
+        bindtap="format" data-name="list" data-value="ordered">
+        <image src="{{'/images/ordered.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item {{formats.list === 'bullet' ? 'image-active' : ''}}"
+        bindtap="format" data-name="list" data-value="bullet">
+        <image src="{{'/images/bullet.svg'}}" class="image" />
+      </view>
+      <view class="scroll-view-item"
+        bindtap="removeFormat" data-name="list" data-value="ordered">
+        <image src="{{'/images/remove-format.svg'}}" class="image" />
+      </view>
+    </view>
+  </scroll-view>
+
+  <view>
+    <editor
+      id="editor"
+      showImgSize="{{showImgSize}}"
+      showImgToolbar="{{showImgToolbar}}"
+      showImgResize="{{showImgResize}}"
+      class="container"
+      style="height: {{editorHeight > 0 ? editorHeight : ''}}rpx"
+      placeholder="{{placeholder}}"
+      bindstatuschange="onStatusChange"
+      bindready="onEditorReady"
+      bindinput="changeContent">
+    </editor>
+  </view>
+
+  <view class="modal-mask" wx:if="{{isShowFontColor}}" bindtap='fontColorCancel'>
+    <view wx:if="{{isShowFontColor}}" class="picker-view-dialog">
+      <view class="dialog-button">
+        <view bindtap='fontColorCancel' class="picker-view-button picker-view-reset">取消</view>
+        <view bindtap='fontColorSubmit' class="picker-view-button picker-view-submit">确定</view>
+      </view>
+      <picker-view bindchange="changeFontColor" class="pick-view-content" indicator-class="picker-view-indicator" value="{{selectFontColorIndex}}">
+        <picker-view-column class="picker-view-column">
+          <view wx:for="{{fontColorcontent}}" class="picker-view-item">
+            <view style="background-color: {{item}}" class="picker-view-item-content">
+                {{item === '' ? '默认': ''}}
+            </view>
+          </view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+
+  <view class="modal-mask" wx:if="{{isShowBgColor}}" bindtap='bgColorCancel'>
+    <view wx:if="{{isShowBgColor}}" class="picker-view-dialog">
+      <view class="dialog-button">
+        <view bindtap='bgColorCancel' class="picker-view-button picker-view-reset">取消</view>
+        <view bindtap='bgColorSubmit' class="picker-view-button picker-view-submit">确定</view>
+      </view>
+      <picker-view bindchange="changeBgColor" class="pick-view-content" indicator-class="picker-view-indicator" value="{{selectBgColorIndex}}">
+        <picker-view-column class="picker-view-column">
+          <view wx:for="{{bgColorContent}}" class="picker-view-item">
+            <view style="background-color: {{item}}" class="picker-view-item-content">
+              {{item === '' ? '默认': ''}}
+            </view>
+          </view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+</view>

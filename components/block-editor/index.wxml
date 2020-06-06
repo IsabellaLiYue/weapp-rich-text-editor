@@ -1,0 +1,268 @@
+<view class="editor-wrapper">
+  <view>
+    <block wx:for="{{ content }}" wx:for-index="index" wx:key="id">
+      <block wx:if="{{ item.type === 'text' }}">
+        <view class="content-item">
+          <view class="operation">
+            <view class="operation-btn-wrp">
+              <view
+                wx:if="{{ item.isShowMore && index !== 0 }}"
+                class="operation-btn"
+                bindtap="moveUp"
+                data-index="{{ index }}">
+                  <image class="operation-switch-btn" src="../../images/move-up.svg"></image>
+              </view>
+              <view
+                wx:if="{{ item.isShowMore && index !== content.length - 1 }}"
+                class="operation-btn"
+                bindtap="moveDown"
+                data-index="{{ index }}">
+                  <image class="operation-switch-btn" src="../../images/move-down.svg"></image>
+              </view>
+              <view
+                wx:if="{{ item.isShowMore }}"
+                class="operation-btn"
+                bindtap="deleteBlock"
+                data-index="{{ index }}">
+                  <image class="operation-switch-btn" src="../../images/delete.svg"></image>
+              </view>
+              <view
+                data-id="{{item.id }}"
+                class="operation-btn"
+                bindtap="switchBtn">
+                <image
+                  wx:if="{{item.isShowMore}}"
+                  class="operation-switch-btn delete-icon}}"
+                  src="../../images/close.svg"></image>
+                <image
+                  wx:else
+                  class="operation-switch-btn}}"
+                  src="../../images/more.svg"></image>
+              </view>
+            </view>
+          </view>
+          <view class="common-contain rich-text-editor">
+            <rich-text-editor
+              placeholder="{{placeholder}}"
+              content="{{item.content}}"
+              id="{{item.id}}"
+              bind:changeTextInput="changeTextInput"
+            ></rich-text-editor>
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{ item.type === 'image' }}">
+        <view class="content-item">
+          <view class="operation">
+            <view class="operation-btn-wrp">
+              <view
+                wx:if="{{ item.isShowMore && index !== 0 }}"
+                class="operation-btn"
+                bindtap="moveUp"
+                data-index="{{ index }}">
+                  <image class="operation-switch-btn" src="../../images/move-up.svg"></image>
+              </view>
+              <view
+                wx:if="{{ item.isShowMore && index !== content.length - 1 }}"
+                class="operation-btn"
+                bindtap="moveDown"
+                data-index="{{ index }}" >
+                  <image class="operation-switch-btn" src="../../images/move-down.svg"></image>
+              </view>
+              <view
+                wx:if="{{ item.isShowMore }}"
+                class="operation-btn"
+                bindtap="deleteBlock"
+                data-index="{{ index }}">
+                  <image class="operation-switch-btn" src="../../images/delete.svg"></image>
+              </view>
+              <view
+                data-id="{{item.id }}"
+                bindtap="switchBtn"
+                class="operation-btn">
+                <image
+                  wx:if="{{item.isShowMore}}"
+                  class="operation-switch-btn delete-icon}}"
+                  src="../../images/close.svg"></image>
+                <image
+                  wx:else
+                  class="operation-switch-btn}}"
+                  src="../../images/more.svg"></image>
+              </view>
+            </view>
+          </view>
+          <view class="common-contain">
+            <view
+              class="insert-image"
+              bindtap="previewImage"
+              data-src="{{ item.tempSrc}}">
+              <image src="{{ item.tempSrc}}" mode="widthFix"></image>
+            </view>
+            <view class="image-input">
+              <input
+                bindinput="changeImageInput"
+                class="image-input-text"
+                data-id="{{ item.id }}"
+                value="{{ item.caption }}"
+                placeholder="请输入描述" />
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{ item.type === 'video' }}">
+        <view class="content-item">
+          <view class="operation">
+            <view class="operation-btn-wrp">
+              <view
+                class="operation-btn"
+                bindtap="moveUp"
+                data-index="{{ index }}"
+                wx:if="{{ item.isShowMore && index !== 0 }}">
+                  <image class="operation-switch-btn" src="../../images/move-up.svg"></image>
+              </view>
+              <view
+                class="operation-btn"
+                bindtap="moveDown"
+                data-index="{{ index }}"
+                wx:if="{{ item.isShowMore && index !== content.length - 1 }}">
+                  <image class="operation-switch-btn" src="../../images/move-down.svg"></image>
+              </view>
+              <view
+                wx:if="{{ item.isShowMore }}"
+                class="operation-btn"
+                bindtap="deleteBlock"
+                data-index="{{ index }}">
+                  <image class="operation-switch-btn" src="../../images/delete.svg"></image>
+              </view>
+              <view
+                data-id="{{item.id }}"
+                class="operation-btn"
+                bindtap="switchBtn">
+                <image
+                  wx:if="{{item.isShowMore}}"
+                  class="operation-switch-btn delete-icon}}"
+                  src="../../images/close.svg"></image>
+                <image
+                  wx:else
+                  class="operation-switch-btn}}"
+                  src="../../images/more.svg"></image>
+              </view>
+            </view>
+          </view>
+          <view class="common-contain">
+            <video
+              src="{{item.tempFilePath}}"
+              class="video-play"
+            ></video>
+            <view class="image-input">
+              <input
+                wx:key="id"
+                class="image-input-text"
+                bindinput="changeVideoInput"
+                data-id="{{ item.id }}"
+                value="{{ item.caption }}"
+                placeholder="请输入描述"/>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{ item.type === 'link' }}">
+        <view class="content-item">
+          <view class="operation">
+            <view class="operation-btn-wrp">
+              <view
+                wx:if="{{ item.isShowMore && index !== 0 }}"
+                class="operation-btn"
+                bindtap="moveUp"
+                data-index="{{ index }}" >
+                  <image class="operation-switch-btn" src="../../images/move-up.svg"></image>
+              </view>
+              <view
+                wx:if="{{ item.isShowMore && index !== content.length - 1 }}"
+                class="operation-btn"
+                bindtap="moveDown"
+                data-index="{{ index }}" >
+                  <image class="operation-switch-btn" src="../../images/move-down.svg"></image>
+              </view>
+              <view
+                wx:if="{{ item.isShowMore }}"
+                class="operation-btn"
+                bindtap="updatedLinkContent"
+                data-id="{{item.id}}"
+                data-index="{{ index }}" >
+                <image class="operation-switch-btn" src="../../images/edit.svg"></image>
+              </view>
+              <view
+                wx:if="{{ item.isShowMore }}"
+                class="operation-btn"
+                bindtap="deleteBlock"
+                data-index="{{ index }}">
+                <image class="operation-switch-btn" src="../../images/delete.svg"></image>
+              </view>
+              <view
+                data-id="{{item.id }}"
+                class="operation-btn"
+                bindtap="switchBtn">
+                <image
+                  wx:if="{{item.isShowMore}}"
+                  class="operation-switch-btn delete-icon}}"
+                  src="../../images/close.svg"></image>
+                <image
+                  wx:else
+                  class="operation-switch-btn}}"
+                  src="../../images/more.svg"></image>
+              </view>
+            </view>
+          </view>
+          <view class="link-content">
+            <text>{{item.title}}</text>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <view class="main-editor-ctl">
+    <view
+      class="editor-ctl-item"
+      wx:for="{{ supportType }}"
+      wx:for-index="key"
+      wx:key="{{ index }}"
+      data-type="{{ item.type }}"
+      bindtap="addNextBlock">
+      <image src="{{item.icon }}" class="item-icon"></image>
+    </view>
+  </view>
+
+  <!-- 超链接popup -->
+  <view class="modal-mask" wx:if="{{isShowLink}}">
+    <view wx:if="{{isShowLink}}" class="link-view-dialog">
+      <view class="link-top">
+        添加超链接
+        <view class="link-close" bindtap="linkCancel">
+          <image class="cancel-icon" src="../../images/close.svg"></image>
+        </view>
+      </view>
+      <view class="link-content-wap">
+        <view class="link-title-input">
+          <input
+            class="link-input-text"
+            bindinput="changeLinkTitleInput"
+            value="{{ linkTitle }}"
+            placeholder="输入链接文本" />
+        </view>
+        <view class="link-title-input link-content-input">
+          <input
+            class="link-input-text"
+            bindinput="changeHrefInput"
+            value="{{ href }}"
+            placeholder="输入链接地址" />
+        </view>
+      </view>
+      <view class="link-view-button" bindtap="linkSubmit">
+        确定
+      </view>
+    </view>
+  </view>
+
+  </view>

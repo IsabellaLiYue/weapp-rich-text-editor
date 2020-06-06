@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>更多</title>
+    <desc>Created with Sketch.</desc>
+    <g id="掌汇大宗" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-313.000000, -177.000000)" fill-rule="nonzero">
+            <g id="更多" transform="translate(313.000000, 177.000000)">
+                <rect id="矩形" fill="#000000" opacity="0" x="0" y="0" width="24" height="24"></rect>
+                <path d="M4,12 C4,12.8284271 4.67157288,13.5 5.5,13.5 C6.32842712,13.5 7,12.8284271 7,12 C7,11.1715729 6.32842712,10.5 5.5,10.5 C4.67157288,10.5 4,11.1715729 4,12 Z M10.5,12 C10.5,12.8284271 11.1715729,13.5 12,13.5 C12.8284271,13.5 13.5,12.8284271 13.5,12 C13.5,11.1715729 12.8284271,10.5 12,10.5 C11.1715729,10.5 10.5,11.1715729 10.5,12 Z M17,12 C17,12.8284271 17.6715729,13.5 18.5,13.5 C19.3284271,13.5 20,12.8284271 20,12 C20,11.1715729 19.3284271,10.5 18.5,10.5 C17.6715729,10.5 17,11.1715729 17,12 Z" id="形状" fill="#333333"></path>
+            </g>
+        </g>
+    </g>
+</svg>

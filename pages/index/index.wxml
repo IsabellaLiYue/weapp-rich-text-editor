@@ -1,0 +1,6 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="usermotto">
+    <block-editor></block-editor>
+  </view>
+</view>

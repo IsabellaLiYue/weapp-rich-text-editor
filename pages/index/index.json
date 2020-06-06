@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "block-editor": "../../components/block-editor/index"
+  }
+}
