@@ -4,8 +4,10 @@ const app = getApp()
 
 Page({
   data: {
+    initData: [],
+    contentData: []
   },
-  onLoad: function () {
-
+  getContentData: function(e) {
+    this.contentData = e.detail.content;
   },
 })

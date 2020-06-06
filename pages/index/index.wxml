@@ -1,6 +1,10 @@
 <!--index.wxml-->
 <view class="container">
   <view class="usermotto">
-    <block-editor></block-editor>
+    <block-editor 
+      placeholder="输入内容"
+      initData="{{initData}}"
+      bind:contentUpdated="getContentData">
+    </block-editor>
   </view>
 </view>
